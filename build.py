@@ -37,6 +37,26 @@ VERSIONS = ["swe", "ml", "agents"]
 SYNCABLE_SECTIONS = ["Education", "Technical Skills", "Experience", "Projects"]
 
 
+# ---------- item-list helpers (for bullet-only syncing) ------------------
+
+def get_item_lists(content: str) -> list[str]:
+    """Return all \\resumeItemListStart...\\resumeItemListEnd blocks in order."""
+    return re.findall(
+        r"\\resumeItemListStart.*?\\resumeItemListEnd", content, re.DOTALL
+    )
+
+
+def replace_item_lists(content: str, new_lists: list[str]) -> str:
+    """Replace item-list blocks in content positionally with new_lists."""
+    pattern = re.compile(r"\\resumeItemListStart.*?\\resumeItemListEnd", re.DOTALL)
+    old_lists = list(pattern.finditer(content))
+    if len(old_lists) != len(new_lists):
+        return content  # mismatch — leave untouched
+    for old, new in zip(reversed(old_lists), reversed(new_lists)):
+        content = content[: old.start()] + new + content[old.end() :]
+    return content
+
+
 # ---------- section-level surgery ----------------------------------------
 
 def _section_re(name: str) -> re.Pattern:
@@ -116,9 +136,18 @@ def sync_mode(source: str, explicit_targets: list[str]) -> None:
         tpath = ROOT / f"{t}.tex"
         tcontent = tpath.read_text()
         for sec in chosen:
-            block = get_section(src_content, sec)
-            if block is not None:
-                tcontent = replace_section(tcontent, sec, block)
+            if sec == "Experience":
+                # bullets only — preserve job titles / dates / locations in target
+                src_sec = get_section(src_content, sec)
+                tgt_sec = get_section(tcontent, sec)
+                if src_sec and tgt_sec:
+                    new_tgt_sec = replace_item_lists(tgt_sec, get_item_lists(src_sec))
+                    tcontent = replace_section(tcontent, sec, new_tgt_sec)
+            else:
+                # Projects, Education, Skills — full section copy
+                block = get_section(src_content, sec)
+                if block is not None:
+                    tcontent = replace_section(tcontent, sec, block)
         tpath.write_text(tcontent)
         print(f"  updated {t}.tex  ({', '.join(chosen)})")
     print()

@@ -1,64 +1,96 @@
-# Resume builder
+# Resume Builder
 
-Three standalone resume versions — edit any one like a normal LaTeX file, then
-run `./build.sh` to produce all PDFs. A `sync` command copies selected sections
-from one version to the others so you only edit common content once.
+Three standalone LaTeX resumes, one build command, optional section-level sync between them.
 
-## Files
+---
 
-```
-swe.tex     ml.tex     agents.tex   # 3 versions, edit these
-build.sh    build.py                 # entry point + logic
-out/                                 # generated PDFs land here
-```
+## Quick Start
 
-Every version compiles to **two** PDFs:
-- `out/regular/<name>.pdf` — Education near the top (as written)
-- `out/edu-bottom/<name>_e.pdf` — Education moved to the bottom (auto-generated)
-
-So `./build.sh` produces 6 PDFs organized as:
-```
-out/regular/      swe.pdf       ml.pdf       agents.pdf
-out/edu-bottom/   swe_e.pdf     ml_e.pdf     agents_e.pdf
-```
-
-(LaTeX aux/log files live in `out/.aux/` — ignore unless something fails.)
-
-## Commands
-
-**Build all PDFs (no sync):**
 ```bash
-./build.sh
+./build.sh                        # build all 6 PDFs
+./build.sh sync swe               # copy chosen sections from swe.tex into ml + agents
+./build.sh sync swe agents        # same but agents.tex only
 ```
 
-**Sync sections from one version to the others, then build:**
-```bash
-./build.sh sync swe               # swe.tex -> ml.tex + agents.tex (both)
-./build.sh sync swe agents        # swe.tex -> agents.tex only
-./build.sh sync swe ml            # swe.tex -> ml.tex only
-./build.sh sync ml                # ml.tex -> swe.tex + agents.tex
-./build.sh sync agents            # agents.tex -> swe.tex + ml.tex
+---
+
+## Project Layout
+
+```
+.
+├── swe.tex          ← edit these like normal LaTeX files
+├── ml.tex
+├── agents.tex
+├── build.sh         ← entry point
+├── build.py         ← sync + compile logic
+└── out/
+    ├── regular/             Education near the top
+    │   ├── swe.pdf
+    │   ├── ml.pdf
+    │   └── agents.pdf
+    └── edu-bottom/          Education moved to the bottom (auto-generated)
+        ├── swe_e.pdf
+        ├── ml_e.pdf
+        └── agents_e.pdf
 ```
 
-Sync prompts you per section:
+LaTeX aux/log files live in `out/.aux/` — ignore unless a build fails.
+
+---
+
+## How Sync Works
+
+Run `./build.sh sync <source>` and you'll be prompted per section:
+
 ```
   Education          [y/N]: y
   Technical Skills   [y/N]: y
   Experience         [y/N]: y
   Projects           [y/N]: n
 ```
-Whatever you answer `y` to gets overwritten in the target files.
 
-## Typical workflow
+What actually gets copied depends on the section:
 
-1. Edit `swe.tex` (fix a bullet, add a project, whatever).
+| Section              | What sync copies                                                          |
+| -------------------- | ------------------------------------------------------------------------- |
+| **Experience**       | **Bullets only.** Job titles, dates, companies, locations stay untouched. |
+| **Projects**         | **Full block.** Project names, tech stacks, dates, bullets — all replaced. |
+| **Education**        | Full section.                                                             |
+| **Technical Skills** | Full section.                                                             |
+
+So if you fix a Boardy bullet in `swe.tex` and sync Experience, `ml.tex` and `agents.tex` get the new bullet but keep their own job titles (e.g. "AI Engineering Intern" vs "Software Engineering Intern").
+
+---
+
+## Sync Targets
+
+```bash
+./build.sh sync swe              # → ml.tex + agents.tex (both, default)
+./build.sh sync swe agents       # → agents.tex only
+./build.sh sync swe ml           # → ml.tex only
+./build.sh sync ml               # → swe.tex + agents.tex
+./build.sh sync agents           # → swe.tex + ml.tex
+```
+
+---
+
+## Typical Workflow
+
+1. Edit `swe.tex` — fix bullets, retitle a job, add a project, whatever.
 2. Run `./build.sh sync swe`.
-3. Answer `y` for Experience / Skills (changes you want everywhere), `n` for Projects (since those differ per version).
+3. Answer `y` for sections to propagate, `n` for ones that should stay version-specific.
 4. All 6 PDFs regenerate.
+
+---
 
 ## Recovery
 
-Each `.tex` is fully self-contained — no shared imports. If you mess up:
-- Open Overleaf, copy the original version, paste it back into the file, run `./build.sh`.
+Each `.tex` is fully self-contained — no shared imports, no dependencies between files.
 
-Sync does **not** make automatic backups. If you wipe something via sync and don't notice for a while, recover from Overleaf.
+If you mess something up:
+
+1. Open the original in Overleaf.
+2. Paste it back into the affected `.tex` file.
+3. Run `./build.sh`.
+
+> **Note:** `sync` does **not** make automatic backups. If you sync the wrong section and don't notice for a while, the old content in the target file is gone — recover from Overleaf.

@@ -8,6 +8,10 @@ texmf-config/
 out/
 .build/
 
+# Tests
+tests/
+__pycache__/
+
 # LaTeX aux files (in case any leak to root)
 *.aux
 *.log
