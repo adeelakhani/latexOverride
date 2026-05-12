@@ -11,8 +11,9 @@ before compiling.
 
 Usage:
     ./build.sh                  # compile every version (no sync)
-    ./build.sh sync swe         # ask which sections to copy from swe.tex
-                                #   into ml.tex and agents.tex, then compile
+    ./build.sh sync swe               # sync from swe.tex to ml.tex + agents.tex
+    ./build.sh sync swe agents        # sync from swe.tex to agents.tex only
+    ./build.sh sync swe ml agents     # sync from swe.tex to both (explicit)
     ./build.sh sync ml          # same but ml.tex as the source
 """
 
@@ -85,14 +86,21 @@ def confirm(label: str) -> bool:
     return resp in ("y", "yes")
 
 
-def sync_mode(source: str) -> None:
+def sync_mode(source: str, explicit_targets: list[str]) -> None:
     if source not in VERSIONS:
         sys.exit(f"error: source must be one of {VERSIONS}, got '{source}'")
     src_path = ROOT / f"{source}.tex"
     if not src_path.exists():
         sys.exit(f"error: {src_path.name} not found")
 
-    targets = [v for v in VERSIONS if v != source]
+    if explicit_targets:
+        bad = [t for t in explicit_targets if t not in VERSIONS or t == source]
+        if bad:
+            sys.exit(f"error: invalid targets {bad}. choose from {[v for v in VERSIONS if v != source]}")
+        targets = explicit_targets
+    else:
+        targets = [v for v in VERSIONS if v != source]
+
     print(f"sync source: {source}.tex")
     print(f"targets:     {', '.join(t + '.tex' for t in targets)}\n")
     print("which sections should overwrite the targets?")
@@ -171,8 +179,8 @@ def main() -> None:
     args = sys.argv[1:]
     if args and args[0] == "sync":
         if len(args) < 2:
-            sys.exit("usage: ./build.sh sync {swe|ml|agents}")
-        sync_mode(args[1])
+            sys.exit("usage: ./build.sh sync {swe|ml|agents} [target1 target2]")
+        sync_mode(args[1], args[2:])
     build_all()
 
 

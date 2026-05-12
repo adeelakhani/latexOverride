@@ -33,9 +33,11 @@ out/edu-bottom/   swe_e.pdf     ml_e.pdf     agents_e.pdf
 
 **Sync sections from one version to the others, then build:**
 ```bash
-./build.sh sync swe       # copy chosen sections from swe.tex -> ml.tex, agents.tex
-./build.sh sync ml        # same but ml.tex as source
-./build.sh sync agents
+./build.sh sync swe               # swe.tex -> ml.tex + agents.tex (both)
+./build.sh sync swe agents        # swe.tex -> agents.tex only
+./build.sh sync swe ml            # swe.tex -> ml.tex only
+./build.sh sync ml                # ml.tex -> swe.tex + agents.tex
+./build.sh sync agents            # agents.tex -> swe.tex + ml.tex
 ```
 
 Sync prompts you per section:
