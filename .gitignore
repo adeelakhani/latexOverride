@@ -1,0 +1,18 @@
+# LaTeX install (regeneratable via `sudo tlmgr install titlesec fontawesome5 enumitem preprint marvosym`
+# or rerun the project-local tlmgr usermode setup)
+texmf/
+texmf-var/
+texmf-config/
+
+# Build outputs
+out/
+.build/
+
+# LaTeX aux files (in case any leak to root)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
