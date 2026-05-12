@@ -13,10 +13,16 @@ out/                                 # generated PDFs land here
 ```
 
 Every version compiles to **two** PDFs:
-- `out/<name>.pdf` — Education near the top (as written)
-- `out/<name>_e.pdf` — Education moved to the bottom (auto-generated)
+- `out/regular/<name>.pdf` — Education near the top (as written)
+- `out/edu-bottom/<name>_e.pdf` — Education moved to the bottom (auto-generated)
 
-So `./build.sh` produces 6 PDFs: `swe.pdf`, `swe_e.pdf`, `ml.pdf`, `ml_e.pdf`, `agents.pdf`, `agents_e.pdf`.
+So `./build.sh` produces 6 PDFs organized as:
+```
+out/regular/      swe.pdf       ml.pdf       agents.pdf
+out/edu-bottom/   swe_e.pdf     ml_e.pdf     agents_e.pdf
+```
+
+(LaTeX aux/log files live in `out/.aux/` — ignore unless something fails.)
 
 ## Commands
 

@@ -3,8 +3,8 @@
 Build resume PDFs from swe.tex / ml.tex / agents.tex.
 
 Each version compiles to TWO PDFs:
-  out/<name>.pdf      - Education near the top (as written in the .tex)
-  out/<name>_e.pdf    - Education moved to the bottom (auto-generated)
+  out/regular/<name>.pdf       - Education near the top (as written in the .tex)
+  out/edu-bottom/<name>_e.pdf  - Education moved to the bottom (auto-generated)
 
 Sync mode lets you push selected sections from one version to the others
 before compiling.
@@ -20,12 +20,16 @@ from __future__ import annotations
 
 import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "out"
+AUX_DIR = OUT_DIR / ".aux"
+REGULAR_DIR = OUT_DIR / "regular"
+EDU_BOTTOM_DIR = OUT_DIR / "edu-bottom"
 TMP_DIR = ROOT / ".build"
 
 VERSIONS = ["swe", "ml", "agents"]
@@ -114,29 +118,37 @@ def sync_mode(source: str) -> None:
 
 # ---------- compile ------------------------------------------------------
 
-def compile_tex(tex_path: Path) -> bool:
+def compile_tex(tex_path: Path, dest_dir: Path) -> bool:
+    """Compile tex_path, drop the .pdf into dest_dir, keep aux/log in OUT_DIR/.aux."""
+    AUX_DIR.mkdir(parents=True, exist_ok=True)
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
     print(f"==> {tex_path.relative_to(ROOT)}")
-    OUT_DIR.mkdir(exist_ok=True)
     cmd = [
         "pdflatex",
-        "-output-directory", str(OUT_DIR),
+        "-output-directory", str(AUX_DIR),
         "-interaction=nonstopmode",
         str(tex_path),
     ]
     result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-    pdf_path = OUT_DIR / (tex_path.stem + ".pdf")
-    if result.returncode != 0 or not pdf_path.exists():
-        print(f"    FAILED — see {OUT_DIR.name}/{tex_path.stem}.log")
+
+    aux_pdf = AUX_DIR / (tex_path.stem + ".pdf")
+    dest_pdf = dest_dir / (tex_path.stem + ".pdf")
+
+    if result.returncode != 0 or not aux_pdf.exists():
+        print(f"    FAILED — see out/.aux/{tex_path.stem}.log")
         return False
-    # report page count from the log if we can (pdflatex wraps the line, so strip newlines first)
-    log = OUT_DIR / (tex_path.stem + ".log")
+
+    shutil.move(str(aux_pdf), str(dest_pdf))
+
+    log = AUX_DIR / (tex_path.stem + ".log")
     pages = "?"
     if log.exists():
         flat = log.read_text(errors="ignore").replace("\n", "")
         m = re.search(r"Output written on [^(]+\((\d+) pages?", flat)
         if m:
             pages = m.group(1)
-    print(f"    -> {pdf_path.relative_to(ROOT)} ({pages} page{'s' if pages != '1' else ''})")
+    print(f"    -> {dest_pdf.relative_to(ROOT)} ({pages} page{'s' if pages != '1' else ''})")
     return True
 
 
@@ -147,10 +159,10 @@ def build_all() -> None:
         if not src.exists():
             print(f"skip: {v}.tex not found")
             continue
-        compile_tex(src)
+        compile_tex(src, REGULAR_DIR)
         e_tex = TMP_DIR / f"{v}_e.tex"
         e_tex.write_text(move_education_to_bottom(src.read_text()))
-        compile_tex(e_tex)
+        compile_tex(e_tex, EDU_BOTTOM_DIR)
 
 
 # ---------- entry --------------------------------------------------------
