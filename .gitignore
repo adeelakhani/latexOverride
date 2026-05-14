@@ -6,7 +6,6 @@ texmf-config/
 
 # Build outputs
 out/
-.build/
 
 # Tests
 tests/
@@ -20,3 +19,5 @@ __pycache__/
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+
+coverletter.tex

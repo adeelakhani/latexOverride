@@ -1,0 +1,154 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Adeel Akhani} \\ \vspace{1pt}
+    \small
+    \href{http://adeelakhani.com/}{\faGlobe\, \underline{http://adeelakhani.com/}} $|$
+    \href{https://www.linkedin.com/in/adeelakhani/}{\faLinkedin\, \underline{adeelakhani}} $|$ 
+    \href{https://github.com/adeelakhani}{\faGithub\, \underline{adeelakhani}} $|$
+    \href{tel:(647) 513-3926}{\faMobile*\, (647) 513-3926} $|$
+    \href{mailto:aakhani@uwaterloo.ca}{\faEnvelope\, \underline{aakhani@uwaterloo.ca}}
+\end{center}
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+    \textbf{Languages}{: Python, TypeScript, JavaScript, C++, C, C\#, SQL, Java} \\
+    \textbf{Developer Tools}{: AWS (EC2, ECS, Lambda), NGINX, GCP, Azure, Docker, PostgreSQL, Qdrant, Redis, BullMQ, Git} \\
+    \textbf{Libraries \& Frameworks}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, PyTorch, TensorFlow, Pandas, NumPy} 
+    }}
+\end{itemize}
+
+\section{Experience}
+\resumeSubHeadingListStart
+        \resumeSubheading
+        {Software Engineering Intern}{Jan 2026 - April 2026}
+            {\href{https://www.boardy.ai/}{Boardy AI}}{Toronto, ON}
+            \resumeItemListStart
+                \resumeItem{Architected the \textbf{Boardy calendar integration} from \textbf{0 to 1} using \textbf{NestJS} and \textbf{Prisma}, transforming Boardy from an AI networking tool to a fully autonomous AI assistant for users across \textbf{2,000+ connected calendars}}
+                \resumeItem{Built a pre-meeting prep system using \textbf{BullMQ} delayed jobs and \textbf{agentic research} to deliver personalized briefs before upcoming meetings, scaling to \textbf{4,200+ briefs/week} with \textbf{74\%} user engagement within 24 hours}
+                \resumeItem{Developed post-meeting debriefs using \textbf{Recall.ai} to capture live meetings and deliver goal-aware summaries and action items via AI follow-up calls, generating \textbf{1,000+ debriefs} with \textbf{92\%} of users receiving delivered value}
+                \resumeItem{Shipped \textbf{agentic scheduling capabilities} using \textbf{Vercel AI SDK} and \textbf{Jinja2}, enabling Boardy to negotiate and autonomously book meetings from intros and CC'd threads, leading to \textbf{650+ meeting bookings}}
+        \resumeItemListEnd
+        \resumeSubheading
+            {Software Engineering Intern}{May 2025 -- Aug 2025}
+            {\href{https://scriptrunner.ai/}{Script Runner}\enspace\href{https://ca.finance.yahoo.com/news/script-runner-uber-direct-partner-140000175.html}{\faExternalLink*}}{Toronto, ON}
+            \resumeItemListStart
+                \resumeItem{Developed prescription delivery software for \textbf{100}+ pharmacies, driving a \textbf{17\%} month-to-month increase in orders}
+                \resumeItem{Built the \textbf{MVP} for \textbf{Uber Direct} third-party delivery services using \textbf{React}, \textbf{Express.js}, and \textbf{PostgreSQL} on \textbf{GCP}, scaling to \textbf{3,000+ deliveries/month} and achieving the \textbf{first Canadian launch} of Uber Batching}
+                \resumeItem{Optimized operations with features for \textbf{scheduling}, \textbf{payment reconciliation} and key operational essentials, reducing manual effort by a total of \textbf{500+} hours per week}
+        \resumeItemListEnd
+        \resumeSubheading
+            {Software Engineering Intern}{Jul 2022 -- Aug 2022}
+            {\href{https://www.softsages.com/}{SoftSages Technology}}{Remote}
+            \resumeItemListStart
+                \resumeItem{Implemented ML models for clients using \textbf{scikit-learn}, \textbf{pandas}, and \textbf{NumPy} to provide software solutions}
+                \resumeItem{Built an NLP email spam classification pipeline using \textbf{TF-IDF} feature extraction and \textbf{logistic regression} with precision, recall, and F1 evaluation, achieving \textbf{90\% accuracy}}
+        \resumeItemListEnd
+    
+\resumeSubHeadingListEnd
+
+\section{Projects}
+\resumeSubHeadingListStart
+    \resumeProjectHeading
+        {{\textbf{Localdocs}} {\href{https://github.com/adeelakhani/localDocs}{\faGithub}} {\href{https://www.npmjs.com/package/@adeel712/localdocs}{\faExternalLink*}} $|$ \emph{TypeScript, LanceDB, Ollama, Crawlee, Cheerio, MCP SDK, Commander}}{April 2026}
+        \resumeItemListStart
+            \resumeItem{Built and published a fully local documentation indexer and search engine as a \textbf{CLI tool and MCP server}, reaching \textbf{1,100+ peak weekly downloads} with zero cloud dependencies or API costs}
+            \resumeItem{Engineered a \textbf{self-hosted RAG pipeline} using a local LLM to reason over a documentation section tree, scoping \textbf{hybrid semantic and BM25 search} via \textbf{RRF} with \textbf{LLM reranking} on retrieved chunks}
+            \resumeItem{Optimized \textbf{phi4-mini (3.8B params)} inference through \textbf{temperature tuning, context pruning, and output schema constraints} to achieve reliable structured reasoning on \textbf{consumer hardware}}
+            \resumeItem{Built a \textbf{semantic reasoning cache} using cosine similarity on query embeddings, reducing repeat LLM tree-navigation calls and cutting query latency by approximately \textbf{85\%} on similar queries}
+        \resumeItemListEnd
+    \resumeProjectHeading
+        {{\textbf{Around Me Agent}} {\href{https://github.com/adeelakhani/around-me-agent}{\faGithub}}  $|$ \emph{TypeScript, Python, FastAPI, Next.js, LangGraph, LangChain, Mapbox GL}}{Aug 2025}
+        \resumeItemListStart
+            \resumeItem{Created a web app utilizing a \textbf{LangChain} \textbf{AI} \textbf{agent} with \textbf{Playwright} \textbf{Browser} \textbf{Toolkit} to scrape subreddits, extracting \textbf{25+} post URLs and \textbf{60,000+} characters to discover activities and landmarks in any city worldwide}
+            \resumeItem{Implemented a \textbf{5-stage geocoding pipeline} combining knowledge graph search, LLM ranking, and geospatial APIs over scraped Reddit content, achieving \textbf{93\%} accuracy}
+        \resumeItemListEnd
+    \resumeProjectHeading
+        {\textbf{LoopyAI} {\href{https://github.com/adeelakhani/LoopyAI-Backend}{\faGithub}} {\href{https://github.com/adeelakhani/LoopyAI}{\faGithub}} {\href{https://www.npmjs.com/package/swing-sdk}{\faExternalLink*}} $|$ \emph{Python, FastAPI, PostHog API, OpenAI Agents SDK, Next.js, Supabase}}{Jun 2025}
+        \resumeItemListStart
+            \resumeItem{Utilized \textbf{OpenAI} \textbf{Agents} \textbf{SDK} to analyze session data from \textbf{DOM} \textbf{snapshots} via the \textbf{PostHog} \textbf{API}, leveraging a \textbf{Gemini} \textbf{agent} to detect errors and deliver \textbf{agentic} insights with embedded session replays}
+            \resumeItem{Currently rebranding and rebuilding as SwingAI, with the \texttt{swing-sdk} reaching \textbf{1,350+} peak weekly downloads}
+        \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+\section{Education}
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {University of Waterloo}{}
+            {Bachelor of Software Engineering}{\textit{2024 - Present}}
+        \resumeSubHeadingListEnd
+
+\end{document}
