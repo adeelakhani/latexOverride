@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-Build resume PDFs from swe.tex / ml.tex / agents.tex.
+Build resume PDFs from swe.tex / ml.tex / agents.tex, plus coverletter.tex.
 
-Each version compiles to TWO PDFs:
+Each resume version compiles to TWO PDFs:
   out/regular/<name>.pdf       - Education near the top (as written in the .tex)
   out/edu-bottom/<name>_e.pdf  - Education moved to the bottom (auto-generated)
+
+coverletter.tex compiles once to out/coverletter.pdf (top-level out/, not regular/edu-bottom).
 
 Sync mode lets you push selected sections from one version to the others
 before compiling.
@@ -200,6 +202,12 @@ def build_all() -> None:
         e_tex = TMP_DIR / f"{v}_e.tex"
         e_tex.write_text(move_education_to_bottom(src.read_text()))
         compile_tex(e_tex, EDU_BOTTOM_DIR)
+
+    cover = ROOT / "coverletter.tex"
+    if cover.exists():
+        compile_tex(cover, OUT_DIR)
+    else:
+        print("skip: coverletter.tex not found")
 
 
 # ---------- entry --------------------------------------------------------

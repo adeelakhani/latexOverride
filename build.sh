@@ -1,7 +1,7 @@
 #!/bin/bash
 # Thin wrapper around build.py. See build.py for full usage.
 #
-#   ./build.sh                  build all 6 PDFs (3 versions x 2 layouts)
+#   ./build.sh                  build 7 PDFs (3 resumes x 2 layouts + out/coverletter.pdf)
 #   ./build.sh sync swe         interactively sync sections from swe.tex
 #                                 into ml.tex and agents.tex, then build
 
