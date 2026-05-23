@@ -6,13 +6,18 @@ Each resume version compiles to TWO PDFs:
   out/regular/<name>.pdf       - Education near the top (as written in the .tex)
   out/edu-bottom/<name>_e.pdf  - Education moved to the bottom (auto-generated)
 
+Company-specific resumes (any other *.tex in the repo root, e.g. apple.tex):
+  out/company/<name>/regular/<name>.pdf
+  out/company/<name>/edu-bottom/<name>_e.pdf
+
 coverletter.tex compiles once to out/coverletter.pdf (top-level out/, not regular/edu-bottom).
 
 Sync mode lets you push selected sections from one version to the others
 before compiling.
 
 Usage:
-    ./build.sh                  # compile every version (no sync)
+    ./build.sh                  # compile every version + company resumes (no sync)
+    ./build.sh apple            # compile apple.tex only -> out/company/apple/
     ./build.sh sync swe               # sync from swe.tex to ml.tex + agents.tex
     ./build.sh sync swe agents        # sync from swe.tex to agents.tex only
     ./build.sh sync swe ml agents     # sync from swe.tex to both (explicit)
@@ -33,10 +38,12 @@ OUT_DIR = ROOT / "out"
 AUX_DIR = OUT_DIR / ".aux"
 REGULAR_DIR = OUT_DIR / "regular"
 EDU_BOTTOM_DIR = OUT_DIR / "edu-bottom"
+COMPANY_DIR = OUT_DIR / "company"
 TMP_DIR = ROOT / ".build"
 
 VERSIONS = ["swe", "ml", "agents"]
 SYNCABLE_SECTIONS = ["Education", "Technical Skills", "Experience", "Projects"]
+SKIP_TEX = set(VERSIONS) | {"coverletter"}
 
 
 # ---------- item-list helpers (for bullet-only syncing) ------------------
@@ -169,13 +176,21 @@ def compile_tex(tex_path: Path, dest_dir: Path) -> bool:
         "-interaction=nonstopmode",
         str(tex_path),
     ]
-    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+    try:
+        result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+    except FileNotFoundError:
+        print("    FAILED — pdflatex not found")
+        print("    Install BasicTeX/MacTeX, or ensure /Library/TeX/texbin is on PATH")
+        return False
 
     aux_pdf = AUX_DIR / (tex_path.stem + ".pdf")
     dest_pdf = dest_dir / (tex_path.stem + ".pdf")
 
     if result.returncode != 0 or not aux_pdf.exists():
         print(f"    FAILED — see out/.aux/{tex_path.stem}.log")
+        for line in (result.stdout + result.stderr).splitlines():
+            if line.startswith("!") or "Error" in line:
+                print(f"    {line}")
         return False
 
     shutil.move(str(aux_pdf), str(dest_pdf))
@@ -191,23 +206,61 @@ def compile_tex(tex_path: Path, dest_dir: Path) -> bool:
     return True
 
 
+def company_resumes() -> list[str]:
+    """Root-level *.tex files that aren't base versions or coverletter."""
+    return sorted(p.stem for p in ROOT.glob("*.tex") if p.stem not in SKIP_TEX)
+
+
+def build_resume_pair(name: str, src: Path, regular_dir: Path, edu_bottom_dir: Path) -> bool:
+    if not compile_tex(src, regular_dir):
+        return False
+    e_tex = TMP_DIR / f"{name}_e.tex"
+    e_tex.write_text(move_education_to_bottom(src.read_text()))
+    return compile_tex(e_tex, edu_bottom_dir)
+
+
 def build_all() -> None:
     TMP_DIR.mkdir(exist_ok=True)
+    failed = False
     for v in VERSIONS:
         src = ROOT / f"{v}.tex"
         if not src.exists():
             print(f"skip: {v}.tex not found")
             continue
-        compile_tex(src, REGULAR_DIR)
-        e_tex = TMP_DIR / f"{v}_e.tex"
-        e_tex.write_text(move_education_to_bottom(src.read_text()))
-        compile_tex(e_tex, EDU_BOTTOM_DIR)
+        if not build_resume_pair(v, src, REGULAR_DIR, EDU_BOTTOM_DIR):
+            failed = True
 
     cover = ROOT / "coverletter.tex"
     if cover.exists():
-        compile_tex(cover, OUT_DIR)
+        if not compile_tex(cover, OUT_DIR):
+            failed = True
     else:
         print("skip: coverletter.tex not found")
+
+    if not build_company():
+        failed = True
+
+    if failed:
+        sys.exit(1)
+
+
+def build_company(names: list[str] | None = None) -> bool:
+    """Build company-specific resumes into out/company/<name>/."""
+    TMP_DIR.mkdir(exist_ok=True)
+    targets = names if names is not None else company_resumes()
+    if not targets:
+        return True
+
+    ok = True
+    for name in targets:
+        src = ROOT / f"{name}.tex"
+        if not src.exists():
+            print(f"skip: {name}.tex not found")
+            continue
+        dest = COMPANY_DIR / name
+        if not build_resume_pair(name, src, dest / "regular", dest / "edu-bottom"):
+            ok = False
+    return ok
 
 
 # ---------- entry --------------------------------------------------------
@@ -218,6 +271,17 @@ def main() -> None:
         if len(args) < 2:
             sys.exit("usage: ./build.sh sync {swe|ml|agents} [target1 target2]")
         sync_mode(args[1], args[2:])
+        build_all()
+        return
+
+    if args:
+        unknown = [name for name in args if not (ROOT / f"{name}.tex").exists()]
+        if unknown:
+            sys.exit(f"error: not found: {', '.join(f'{n}.tex' for n in unknown)}")
+        if not build_company(args):
+            sys.exit(1)
+        return
+
     build_all()
 
 
