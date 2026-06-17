@@ -1,0 +1,94 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkblue}{RGB}{0, 102, 204}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=linkblue,
+    linkcolor=linkblue
+}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\pdfgentounicode=1
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Adeel Akhani} \\ \vspace{1pt}
+    \small
+    \href{http://adeelakhani.com/}{\faGlobe\, \underline{http://adeelakhani.com}} $|$
+    \href{https://www.linkedin.com/in/adeelakhani/}{\faLinkedin\, \underline{adeelakhani}} $|$ 
+    \href{https://github.com/adeelakhani}{\faGithub\, \underline{adeelakhani}} $|$
+    \href{tel:(647) 513-3926}{\faMobile*\, (647) 513-3926} $|$
+    \href{mailto:akhaniadeel@gmail.com}{\faEnvelope\, \underline{akhaniadeel@gmail.com}}
+\end{center}
+
+\vspace{15pt}
+
+\noindent \textbf{Dear Huawei Noah’s Ark Lab Hiring Team},
+
+\vspace{10pt}
+
+I’m Adeel, a Software Engineering student at the University of Waterloo with hands-on experience in deep learning, NLP, and building AI-driven systems end-to-end. I’m drawn to the Noah’s Ark Lab because the work sits at the intersection of research and deployment, which is exactly where I want to be.
+
+\begin{itemize}[leftmargin=15pt]
+
+    \item This winter I interned at Boardy AI as an AI Engineering Intern, helping evolve the product from a networking tool into an \textbf{autonomous AI assistant} that reasons, schedules, and acts on behalf of users.
+    \begin{itemize}
+        \item Built the meeting prep pipeline that uses agentic research to enrich attendees and deliver personalized briefs, scaling to 4,200+ briefs/week with 74\% user engagement.
+        \item Developed post-meeting debriefs using transcript processing to extract summaries and action items, generating 1,000+ debriefs with 92\% engagement.
+        \item Shipped agentic scheduling using the Vercel AI SDK with prompt templating via Jinja2, enabling the agent to autonomously book 650+ meetings.
+    \end{itemize}
+
+    \item I built \textbf{\underline{\href{https://github.com/adeelakhani/RememberGranny}{Remember Granny}}}, a deep learning-powered password security platform where I trained an LSTM network in PyTorch on 760,000 passwords using character-level one-hot encoding, packed sequences, and concatenated max+mean pooling for multi-class strength classification. I also integrated the Groq API for low-latency LLM inference to generate high-entropy passwords with mnemonic aids.
+
+    \item At SoftSages, I built ML pipelines for clients using scikit-learn and developed an NLP spam detection system with tokenization, stopword removal, and TF-IDF n-gram feature extraction fed into logistic regression, evaluated with precision, recall, and F1-score, achieving 90\% accuracy.
+
+\end{itemize}
+
+\vspace{6pt}
+I’m excited about the chance to work closely with researchers on embodied AI and contribute to projects that push models from prototype to product. The lab’s focus on LLMs, reinforcement learning, and deploying research into real systems is exactly the kind of work I want to grow into.
+
+\vspace{10pt}
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+\vspace{10pt}
+
+\noindent Sincerely, \\
+Adeel Akhani
+
+\end{document}
