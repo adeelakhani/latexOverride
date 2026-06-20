@@ -86,7 +86,7 @@
     \resumeSubHeadingListStart
         \resumeSubheading
             {University of Waterloo}{}
-            {Bachelor of Software Engineering}{\textit{Expected Apr 2027}}
+            {Bachelor of Software Engineering}{\textit{Expected Apr 2029}}
             \resumeItemListStart
                 \resumeItem{\textbf{Relevant Coursework}: Data Structures \& Algorithms, Compilers, Database Systems, Software Engineering Principles}
             \resumeItemListEnd
@@ -95,7 +95,7 @@
 \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
     \textbf{Languages}{: Python, TypeScript, JavaScript, C++, C, C\#, Java, SQL} \\
-    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, PyTorch, TensorFlow, Pandas, NumPy, Redis, BullMQ} \\
+    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, Redis, BullMQ, PyTorch, TensorFlow, Pandas, NumPy} \\
     \textbf{Developer Tools}{: AWS (EC2, ECS, Lambda), GCP, Azure, Docker, NGINX, PostgreSQL, Qdrant, Git} 
     }}
 \end{itemize}
@@ -106,10 +106,12 @@
         {Software Engineering Intern}{Jan 2026 -- Apr 2026}
             {\href{https://www.boardy.ai/}{Boardy AI}}{Toronto, ON}
             \resumeItemListStart
-                \resumeItem{Architected an \textbf{AI agent} using \textbf{NestJS} and \textbf{Prisma} with \textbf{OAuth} and signed webhooks, transforming the platform from a networking tool to a fully autonomous AI assistant across \textbf{2,000+} connected calendars}
-                \resumeItem{Built a meeting prep pipeline using \textbf{BullMQ} delayed jobs and \textbf{Redis} state tracking to resolve and enrich attendees before upcoming meetings, scaling to \textbf{4,200+} briefs/week with \textbf{74\%} user engagement within 24 hours}
-                \resumeItem{Developed post-meeting debriefs using \textbf{Recall.ai} webhooks and async transcript processing with idempotent writes to extract summaries and action items, generating \textbf{1,000+} debriefs with \textbf{92\%} user engagement on delivered debriefs}
-                \resumeItem{Shipped an automated \textbf{scheduling service} using \textbf{Vercel AI SDK} and \textbf{Jinja2} with free/busy computation, enabling the agent to negotiate and autonomously book \textbf{650+} meetings from intros and CC'd email threads}
+                \resumeItem{Engineered a calendar sync layer for an AI agent with \textbf{NestJS}, \textbf{Prisma}, and HMAC-signed webhooks, using single-flight token refresh and idempotent upserts for crash-safe state reconciliation across \textbf{2,000+} connected calendars}
+                \resumeItem{Built an autonomous meeting scheduler in \textbf{TypeScript} with cross-calendar availability resolution and \textbf{LLM}-driven slot ranking over a per-user preference model, booking \textbf{650+} meetings from email threads}
+                \resumeItem{Built an event-driven meeting prep pipeline on \textbf{BullMQ} with per-event delayed jobs, idempotent deduplication, and fire-time state validation against live calendars, scaling to \textbf{5,000+} meetings/week}
+                \resumeItem{Resolved a distributed deadlock where orphaned \textbf{Redis} TTL locks stalled the scheduling pipeline, engineering a fault-tolerant lock release protocol that \textbf{doubled} booking success rate}
+
+
         \resumeItemListEnd
         \resumeSubheading
             {Software Engineering Intern}{May 2025 -- Aug 2025}
@@ -120,8 +122,8 @@
                 \resumeItem{Developed a delivery scheduling system with \textbf{Google Geocode} and Timezone APIs to auto-detect pharmacy timezones and validate delivery windows across scheduled and on-demand dispatches, processing \textbf{1,200+} scheduled deliveries/week}
         \resumeItemListEnd
         \resumeSubheading
-            {Software Engineering Intern}{Jul 2022 -- Aug 2022}
-            {\href{https://www.softsages.com/}{SoftSages Technology}}{Remote}
+            {Software Engineering Intern}{May 2022 -- Aug 2022}
+            {\href{https://www.softsages.com/}{SoftSages Technology}}{Malvern, PA}
             \resumeItemListStart
                 \resumeItem{Developed regression and classification ML pipelines for client projects using scikit-learn, pandas, and NumPy}
                 \resumeItem{Built an \textbf{NLP} spam detection system using \textbf{TF-IDF} vectorization and logistic regression, achieving \textbf{90\%} accuracy}
@@ -134,7 +136,7 @@
     \resumeProjectHeading
         {{\textbf{Localdocs}} {\href{https://github.com/adeelakhani/localDocs}{\faGithub}} {\href{https://www.npmjs.com/package/@adeel712/localdocs}{\faExternalLink*}} $|$ \emph{TypeScript, LanceDB, Ollama, Crawlee, Cheerio, MCP SDK, Commander}}{Apr 2026}
         \resumeItemListStart
-            \resumeItem{Built and published a fully local documentation indexer and search engine as a CLI tool and MCP server with a \textbf{Playwright} fallback for JS-rendered sites, reaching \textbf{1,100+} peak weekly downloads with zero cloud dependencies}
+            \resumeItem{Built and published a fully local documentation indexer and search engine on \textbf{npm} as a CLI tool and MCP server with a \textbf{Playwright} fallback for JS-rendered sites, reaching \textbf{1,100+} peak weekly downloads with zero cloud dependencies}
             \resumeItem{Engineered a self-hosted \textbf{RAG} pipeline using a local LLM to reason over a documentation section tree, scoping hybrid \textbf{semantic} and \textbf{BM25} search via \textbf{Reciprocal Rank Fusion} with \textbf{LLM reranking} on the top retrieved chunks}
             \resumeItem{Optimized \textbf{phi4-mini} (3.8B params) for on-device inference through temperature tuning, context pruning, and structured output schema constraints, benchmarked across \textbf{10+} models to achieve reliable reasoning on consumer hardware}
             \resumeItem{Designed a \textbf{semantic reasoning cache} using cosine similarity on query embeddings to skip redundant LLM tree-navigation calls, cutting cold-to-cached query latency by approximately \textbf{85\%} on similar queries}
@@ -149,7 +151,7 @@
         {\textbf{LoopyAI} {\href{https://github.com/adeelakhani/LoopyAI-Backend}{\faGithub}} {\href{https://github.com/adeelakhani/LoopyAI}{\faGithub}} {\href{https://www.npmjs.com/package/swing-sdk}{\faExternalLink*}} $|$ \emph{Python, FastAPI, PostHog API, OpenAI Agents SDK, Next.js, Supabase}}{Jun 2025}
         \resumeItemListStart
             \resumeItem{Built a full-stack session analytics platform that ingests user sessions and automatically detects frontend errors, delivering \textbf{agentic} debugging insights with embedded session replays to engineering teams across production environments}
-            \resumeItem{Rebranded as \textbf{SwingAI} with the \texttt{swing-sdk} reaching \textbf{1,350+} peak weekly downloads, leveraging \textbf{OpenAI} \textbf{Agents} \textbf{SDK} to analyze DOM snapshots via the PostHog API with a Gemini agent to triage and surface errors}
+            \resumeItem{Rebranded as \textbf{SwingAI} with the \texttt{swing-sdk} reaching \textbf{1,350+} peak weekly downloads on \textbf{npm}, leveraging \textbf{OpenAI} \textbf{Agents} \textbf{SDK} to analyze DOM snapshots via the PostHog API with a Gemini agent to triage and surface errors}
         \resumeItemListEnd
     \resumeSubHeadingListEnd
 
