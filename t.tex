@@ -86,7 +86,7 @@
     \resumeSubHeadingListStart
         \resumeSubheading
             {University of Waterloo}{}
-            {Bachelor of Software Engineering}{\textit{Expected Apr 2029}}
+            {Bachelor of Software Engineering}{\textit{Expected Apr 2027}}
             \resumeItemListStart
                 \resumeItem{\textbf{Relevant Coursework}: Data Structures \& Algorithms, Compilers, Database Systems, Software Engineering Principles}
             \resumeItemListEnd
@@ -95,8 +95,8 @@
 \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
     \textbf{Languages}{: Python, TypeScript, JavaScript, C++, C, C\#, Java, SQL} \\
-    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, Redis, BullMQ, PyTorch, TensorFlow, Pandas, NumPy} \\
-    \textbf{Developer Tools}{: AWS (EC2, ECS, Lambda), GCP, Azure, Docker, NGINX, PostgreSQL, Qdrant, Git} 
+    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, Redis, BullMQ, Kafka, PyTorch, Pandas, NumPy} \\
+    \textbf{Developer Tools}{: AWS (EC2, ECS, Lambda), GCP, Azure, Docker, Sentry, NGINX, PostgreSQL, Qdrant, Git} 
     }}
 \end{itemize}
 
@@ -108,8 +108,8 @@
             \resumeItemListStart
                 \resumeItem{Engineered a calendar sync layer for an AI agent with \textbf{NestJS}, \textbf{Prisma}, and HMAC-signed webhooks, using single-flight token refresh and idempotent upserts for crash-safe state reconciliation across \textbf{2,000+} connected calendars}
                 \resumeItem{Built an autonomous meeting scheduler in \textbf{TypeScript} with cross-calendar availability resolution and \textbf{LLM}-driven slot ranking over a per-user preference model, booking \textbf{650+} meetings from email threads}
-                \resumeItem{Built an event-driven meeting prep pipeline on \textbf{BullMQ} with per-event delayed jobs, idempotent deduplication, and fire-time state validation against live calendars, scaling to \textbf{5,000+} meetings/week}
-                \resumeItem{Resolved a distributed deadlock where orphaned \textbf{Redis} TTL locks stalled the Boardy matching pipeline, engineering a fault-tolerant lock release protocol that \textbf{doubled} booking match rate}
+                \resumeItem{Built an event-driven meeting prep pipeline on \textbf{BullMQ} with \textbf{asynchronous} delayed jobs, idempotent deduplication, and fire-time state validation against live calendars, scaling to \textbf{5,000+} meetings/week}
+                \resumeItem{Diagnosed a \textbf{distributed systems} deadlock via \textbf{Sentry} where orphaned \textbf{Redis} TTL locks stalled the scheduling pipeline, engineering a fault-tolerant lock release via SET NX owner-value guards that \textbf{doubled} booking success rate}
 
 
         \resumeItemListEnd
@@ -118,7 +118,7 @@
             {\href{https://scriptrunner.ai/}{Script Runner}\enspace\href{https://ca.finance.yahoo.com/news/script-runner-uber-direct-partner-140000175.html}{\faExternalLink*}}{Toronto, ON}
             \resumeItemListStart
                 \resumeItem{Engineered \textbf{Uber Direct} integration for pharmaceutical delivery using \textbf{React}, \textbf{Express.js}, and \textbf{PostgreSQL} on \textbf{GCP} with batch locking and state machines, scaling to \textbf{3,000+} deliveries/month with a \textbf{17\%} month-to-month increase}
-                \resumeItem{Implemented a payment reconciliation system processing \textbf{Square API} webhooks to track card-on-file charges and compute pay-at-door deltas across \textbf{100+} pharmacies, reducing manual effort by \textbf{500+} hours per week}
+                \resumeItem{Implemented an \textbf{event-driven} payment reconciliation system processing \textbf{Square API} webhooks to track card-on-file charges and compute pay-at-door deltas across \textbf{100+} pharmacies, reducing manual effort by \textbf{500+} hours per week}
                 \resumeItem{Developed a delivery scheduling system with \textbf{Google Geocode} and Timezone APIs to auto-detect pharmacy timezones and validate delivery windows across scheduled and on-demand dispatches, processing \textbf{1,200+} scheduled deliveries/week}
         \resumeItemListEnd
         \resumeSubheading
