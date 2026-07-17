@@ -86,7 +86,7 @@
     \resumeSubHeadingListStart
         \resumeSubheading
             {University of Waterloo}{}
-            {Bachelor of Software Engineering}{\textit{Expected Apr 2027}}
+            {Bachelor of Software Engineering}{\textit{Expected Dec 2027}}
             \resumeItemListStart
                 \resumeItem{\textbf{Relevant Coursework}: Data Structures \& Algorithms, Compilers, Database Systems, Software Engineering Principles}
             \resumeItemListEnd
@@ -95,7 +95,7 @@
 \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
     \textbf{Languages}{: Python, TypeScript, JavaScript, C++, C, C\#, Java, SQL} \\
-    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, Redis, BullMQ, Kafka, PyTorch, Pandas, NumPy} \\
+    \textbf{Technologies}{: React, NestJS, Express.js, FastAPI, Flask, Prisma, Redis, BullMQ, Airflow, SpringBoot, PyTorch, Pandas} \\
     \textbf{Developer Tools}{: AWS (EC2, ECS, Lambda), GCP, Azure, Docker, Sentry, NGINX, PostgreSQL, Qdrant, Git} 
     }}
 \end{itemize}
@@ -108,8 +108,8 @@
             \resumeItemListStart
                 \resumeItem{Built the calendar and scheduling AI agent for \textbf{Boardy Pro} using \textbf{NestJS}, \textbf{Prisma}, and HMAC-signed webhooks with single-flight token refresh and idempotent upserts across \textbf{10,000+} connected calendars}
                 \resumeItem{Created an autonomous meeting scheduler in \textbf{TypeScript} with cross-calendar availability resolution and \textbf{LLM}-driven slot ranking over a per-user preference model, scheduling \textbf{15,000+} meetings since launch}
-                \resumeItem{Designed an event-driven meeting prep pipeline on \textbf{BullMQ} with \textbf{asynchronous} delayed jobs, idempotent deduplication, and fire-time state validation against live calendars, scaling to \textbf{25,000+} meetings/week}
-                \resumeItem{Diagnosed a \textbf{distributed systems} deadlock via \textbf{Sentry} where orphaned \textbf{Redis} TTL locks stalled the intro pipeline, engineering a fault-tolerant lock release via SET NX owner-value guards that \textbf{doubled} match success rate}
+                \resumeItem{Designed an event-driven meeting prep \textbf{data pipeline} on \textbf{Airflow} with \textbf{asynchronous} delayed jobs, idempotent deduplication, and fire-time state validation against live calendars, serving \textbf{100,000+} meetings/week}
+                \resumeItem{Diagnosed a \textbf{distributed systems} deadlock via \textbf{Sentry} \textbf{alerting} where orphaned \textbf{Redis} TTL locks stalled the intro pipeline, engineering a fault-tolerant lock release via SET NX owner-value guards that \textbf{doubled} match success rate}
 
 
         \resumeItemListEnd
@@ -142,16 +142,18 @@
             \resumeItem{Designed a \textbf{semantic reasoning cache} using cosine similarity on query embeddings to skip redundant LLM tree-navigation calls, cutting cold-to-cached query latency by approximately \textbf{85\%} on similar queries}
         \resumeItemListEnd
     \resumeProjectHeading
-        {{\textbf{Around Me Agent}} {\href{https://github.com/adeelakhani/around-me-agent}{\faGithub}}  $|$ \emph{TypeScript, Python, FastAPI, Next.js, LangGraph, LangChain, Mapbox GL}}{Aug 2025}
-        \resumeItemListStart
-            \resumeItem{Created a web app utilizing a \textbf{LangChain} \textbf{AI} \textbf{agent} with \textbf{Playwright} Browser Toolkit to scrape subreddits, extracting \textbf{25+} post URLs and \textbf{60,000+} characters to discover activities and landmarks in any city worldwide}
-            \resumeItem{Implemented a \textbf{5-stage} geocoding pipeline combining knowledge graph search, \textbf{BeautifulSoup} HTML parsing, LLM ranking, and geospatial APIs over scraped Reddit content with \textbf{Pydantic} validation, achieving \textbf{93\%} accuracy}
-        \resumeItemListEnd
-    \resumeProjectHeading
         {\textbf{LoopyAI} {\href{https://github.com/adeelakhani/LoopyAI-Backend}{\faGithub}} {\href{https://github.com/adeelakhani/LoopyAI}{\faGithub}} {\href{https://www.npmjs.com/package/swing-sdk}{\faExternalLink*}} $|$ \emph{Python, FastAPI, PostHog API, OpenAI Agents SDK, Next.js, Supabase}}{Jun 2025}
         \resumeItemListStart
             \resumeItem{Built a full-stack session analytics platform that ingests user sessions and automatically detects frontend errors, delivering \textbf{agentic} debugging insights with embedded session replays to engineering teams across production environments}
             \resumeItem{Rebranded as \textbf{SwingAI} with the \texttt{swing-sdk} reaching \textbf{1,350+} peak weekly downloads on \textbf{npm}, leveraging \textbf{OpenAI} \textbf{Agents} \textbf{SDK} to analyze DOM snapshots via the PostHog API with a Gemini agent to triage and surface errors}
+        \resumeItemListEnd
+    \resumeProjectHeading
+        {{\textbf{LetsCook}} {\href{https://github.com/adeelakhani/LetsCook}{\faGithub}} {\href{https://letscook-silk.vercel.app}{\faExternalLink*}} $|$ \emph{TypeScript, Next.js, Express.js, Supabase, Docker, Google Cloud Platform}}{Jan -- Jun 2025}
+        \resumeItemListStart
+            \resumeItem{Full-stack social platform with \textbf{30+} active users where people share cooking challenges and compete for points}
+            \resumeItem{Utilized \textbf{Express.js} to develop \textbf{RESTful} \textbf{APIs} for profile management, post creation/submissions, and workflows}
+            \resumeItem{Used \textbf{Supabase} for Google authentication, image uploads and operating an \textbf{RLS}-enforced \textbf{PostgreSQL} database}
+            \resumeItem{Deployed \textbf{Dockerized} backend to \textbf{GCP} \textbf{Cloud} \textbf{Run} with \textbf{GitHub Actions CI/CD}}
         \resumeItemListEnd
     \resumeSubHeadingListEnd
 
